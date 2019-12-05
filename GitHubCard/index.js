@@ -1,7 +1,15 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
+
 */
+
+axios.get('https://api.github.com/users/dorenafortune')
+ .then (function(response){
+  const something = document.querySelector(".cards")
+  something.appendChild(gitCard(response))
+  console.log(response);
+})
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,7 +32,19 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['CAM603', 'aalvinlin', 'TylerBiswell','derekdyer0309', 'amohler09',];
+
+followersArray.forEach(element => {
+  const users = 'https://api.github.com/users/' + element;
+  const something = document.querySelector(".cards")
+  axios.get(users)
+  .then(response => {
+    something.appendChild(gitCard(response))
+    
+  })
+
+
+})
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,6 +65,53 @@ const followersArray = [];
 </div>
 
 */
+
+function gitCard(userProfile){
+  const 
+    newUserCard = document.createElement("div"),
+    newUserImage = document.createElement("img"),
+    userInfo = document.createElement("div"),
+    usersName = document.createElement("h3"),
+    usersUserName = document.createElement("p"),
+    location = document.createElement("p"),
+    profile = document.createElement("a"),
+    followers = document.createElement("p"),
+    following = document.createElement("p"), 
+   bio = document.createElement("p");
+
+//appending
+
+newUserCard.appendChild(newUserImage);
+newUserCard.appendChild(userInfo);
+userInfo.appendChild(usersName);
+userInfo.appendChild(usersUserName);
+userInfo.appendChild(location);
+userInfo.appendChild(profile);
+userInfo.appendChild(followers);
+userInfo.appendChild(following);
+userInfo.appendChild(bio);
+
+//classlist
+
+newUserCard.classList.add("card");
+userInfo.classList.add("card-info");
+usersName.classList.add("name");
+usersUserName.classList.add("username");
+
+//textContent 
+newUserImage.setAttribute("src", userProfile.data.avatar_url);
+usersName.textContent = `Name: ${userProfile.data.name}`;
+usersUserName.textContent = `Username: ${userProfile.data.login}`;
+location.textContent = `Location: ${userProfile.data.location}`;
+profile.textContent = `Github URL: ${userProfile.data.url}`;
+followers.textContent = `Followers: ${userProfile.data.followers}`;
+following.textContent = `Following: ${userProfile.data.following}`;
+bio.textContent = userProfile.data.bio;
+
+return newUserCard
+
+}
+
 
 /* List of LS Instructors Github username's: 
   tetondan
