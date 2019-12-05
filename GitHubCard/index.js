@@ -74,7 +74,7 @@ function gitCard(userProfile){
     usersName = document.createElement("h3"),
     usersUserName = document.createElement("p"),
     location = document.createElement("p"),
-    profile = document.createElement("a"),
+    profile = document.createElement("p"),
     followers = document.createElement("p"),
     following = document.createElement("p"), 
    bio = document.createElement("p");
@@ -103,7 +103,7 @@ newUserImage.setAttribute("src", userProfile.data.avatar_url);
 usersName.textContent = `Name: ${userProfile.data.name}`;
 usersUserName.textContent = `Username: ${userProfile.data.login}`;
 location.textContent = `Location: ${userProfile.data.location}`;
-profile.textContent = `Github URL: ${userProfile.data.url}`;
+profile.innerHTML = `Github URL: ${userProfile.data.url}`;
 followers.textContent = `Followers: ${userProfile.data.followers}`;
 following.textContent = `Following: ${userProfile.data.following}`;
 bio.textContent = userProfile.data.bio;
